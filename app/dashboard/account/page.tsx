@@ -58,7 +58,7 @@ export default async function AccountPage() {
               <p className="text-secondary">Current plan: <strong style={{ color: 'var(--text-primary)' }}>{tierDisplay}</strong></p>
             </div>
             <Link href="/dashboard/billing" className="btn btn-secondary">
-              Manage Billing →
+              Manage Billing
             </Link>
           </div>
         </div>

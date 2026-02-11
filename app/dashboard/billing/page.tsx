@@ -46,18 +46,6 @@ export default async function BillingPage() {
       </nav>
 
       <div className="container-sm" style={{ paddingTop: '2rem' }}>
-        <div style={{ marginBottom: '2rem' }}>
-          <Link 
-            href="/dashboard/account"
-            style={{ 
-              color: 'var(--primary)', 
-              textDecoration: 'none',
-              fontSize: '0.875rem'
-            }}
-          >
-            ← Back to Account
-          </Link>
-        </div>
 
         <h1 style={{ marginBottom: '2rem' }}>Billing & Subscription</h1>
 
