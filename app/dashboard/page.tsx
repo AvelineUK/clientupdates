@@ -59,7 +59,10 @@ export default async function Dashboard() {
               Placeholder
             </Link>
             <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-              <Link href="/dashboard/account" style={{ color: 'var(--text-primary)', textDecoration: 'none', fontSize: '0.9375rem' }}>
+              <Link href="/dashboard" style={{ color: 'var(--text-primary)', textDecoration: 'none', fontSize: '0.875rem' }}>
+                Dashboard
+              </Link>
+              <Link href="/dashboard/account" style={{ color: 'var(--text-primary)', textDecoration: 'none', fontSize: '0.875rem' }}>
                 Account
               </Link>
               <SignOutButton />
@@ -68,7 +71,7 @@ export default async function Dashboard() {
         </div>
       </nav>
 
-      <div className="container">
+      <div className="container" style={{ paddingTop: '2rem' }}>
         <div className="flex items-center justify-between" style={{ marginBottom: '2rem' }}>
           <h1>My Projects</h1>
           <Link href="/dashboard/new" className="btn btn-primary">

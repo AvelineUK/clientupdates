@@ -26,8 +26,8 @@ export function emailTemplate({
           body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
-            color: #111827;
-            background-color: #f9fafb;
+            color: #0f172a;
+            background-color: #f8fafc;
             margin: 0;
             padding: 0;
           }
@@ -37,51 +37,58 @@ export function emailTemplate({
             background-color: #ffffff;
           }
           .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 40px 20px;
-            text-align: center;
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 32px 40px;
           }
           .logo {
-            color: #ffffff;
-            font-size: 28px;
-            font-weight: 700;
+            color: #0f172a;
+            font-size: 20px;
+            font-weight: 600;
             text-decoration: none;
+            letter-spacing: -0.01em;
           }
           .content {
-            padding: 40px 30px;
+            padding: 40px;
           }
           .title {
             font-size: 24px;
-            font-weight: 700;
-            margin: 0 0 20px 0;
-            color: #111827;
+            font-weight: 600;
+            margin: 0 0 24px 0;
+            color: #0f172a;
+            letter-spacing: -0.02em;
           }
           .button {
             display: inline-block;
-            background-color: #2563eb;
+            background-color: #0f172a;
             color: #ffffff !important;
-            padding: 14px 28px;
+            padding: 12px 24px;
             text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            margin: 20px 0;
+            border-radius: 6px;
+            font-weight: 500;
+            margin: 24px 0;
+            font-size: 14px;
           }
           .footer {
-            background-color: #f9fafb;
-            padding: 30px;
+            background-color: #f8fafc;
+            padding: 32px 40px;
             text-align: center;
-            color: #6b7280;
+            color: #64748b;
             font-size: 14px;
-            border-top: 1px solid #e5e7eb;
+            border-top: 1px solid #e2e8f0;
           }
           .footer a {
-            color: #2563eb;
+            color: #0f172a;
             text-decoration: none;
           }
           hr {
             border: none;
-            border-top: 1px solid #e5e7eb;
+            border-top: 1px solid #e2e8f0;
             margin: 24px 0;
+          }
+          p {
+            margin: 0 0 16px 0;
+            color: #64748b;
           }
         </style>
       </head>
@@ -95,22 +102,22 @@ export function emailTemplate({
             <h1 class="title">${title}</h1>
             ${content}
             ${buttonText && buttonUrl ? `
-              <div style="text-align: center; margin: 30px 0;">
+              <div style="text-align: center; margin: 32px 0;">
                 <a href="${buttonUrl}" class="button">${buttonText}</a>
               </div>
             ` : ''}
           </div>
           
           <div class="footer">
-            <p>
+            <p style="margin-bottom: 12px;">
               ${footerText || 'You received this email because you are using Placeholder.'}
             </p>
-            <p style="margin-top: 10px;">
+            <p style="margin-bottom: 12px;">
               <a href="${process.env.NEXT_PUBLIC_APP_URL}/about">About</a> · 
               <a href="${process.env.NEXT_PUBLIC_APP_URL}/contact">Contact</a> · 
               <a href="${process.env.NEXT_PUBLIC_APP_URL}/privacy">Privacy</a>
             </p>
-            <p style="margin-top: 10px; color: #9ca3af;">
+            <p style="color: #94a3b8; font-size: 13px;">
               © ${new Date().getFullYear()} Placeholder. All rights reserved.
             </p>
           </div>

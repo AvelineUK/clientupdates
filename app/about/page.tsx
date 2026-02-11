@@ -3,18 +3,6 @@ import Link from 'next/link'
 export default function AboutPage() {
   return (
     <div className="container-sm" style={{ paddingTop: '4rem', paddingBottom: '4rem' }}>
-      <div style={{ marginBottom: '2rem' }}>
-        <Link 
-          href="/"
-          style={{ 
-            color: 'var(--primary)', 
-            textDecoration: 'none',
-            fontSize: '0.9375rem'
-          }}
-        >
-          ← Back to Home
-        </Link>
-      </div>
 
       <h1 style={{ marginBottom: '2rem' }}>About Placeholder</h1>
 

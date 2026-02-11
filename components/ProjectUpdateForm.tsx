@@ -63,7 +63,7 @@ export default function ProjectUpdateForm({ projectId }: ProjectUpdateFormProps)
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="form-horizontal">
       <div className="form-group">
         <label htmlFor="update-message">Update Message *</label>
         <textarea
@@ -110,13 +110,15 @@ export default function ProjectUpdateForm({ projectId }: ProjectUpdateFormProps)
         </div>
       )}
 
-      <button
-        type="submit"
-        className="btn btn-primary"
-        disabled={loading}
-      >
-        {loading ? 'Posting...' : 'Post Update'}
-      </button>
+      <div className="form-actions">
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={loading}
+        >
+          {loading ? 'Posting...' : 'Post Update'}
+        </button>
+      </div>
     </form>
   )
 }

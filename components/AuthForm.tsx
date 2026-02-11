@@ -164,7 +164,6 @@ export default function AuthForm() {
             border: 'none', 
             color: 'var(--primary)', 
             cursor: 'pointer',
-            textDecoration: 'underline',
             fontSize: '0.9375rem'
           }}
           disabled={loading}

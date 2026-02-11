@@ -4,18 +4,6 @@ import ContactForm from '@/components/ContactForm'
 export default function ContactPage() {
   return (
     <div className="container-sm" style={{ paddingTop: '4rem', paddingBottom: '4rem' }}>
-      <div style={{ marginBottom: '2rem' }}>
-        <Link 
-          href="/"
-          style={{ 
-            color: 'var(--primary)', 
-            textDecoration: 'none',
-            fontSize: '0.9375rem'
-          }}
-        >
-          ← Back to Home
-        </Link>
-      </div>
 
       <h1 style={{ marginBottom: '1rem' }}>Contact Us</h1>
       <p className="text-secondary" style={{ marginBottom: '2rem' }}>

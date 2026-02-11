@@ -49,12 +49,14 @@ export default function DeleteProjectButton({ projectId, projectName }: DeletePr
 
   if (!showConfirm) {
     return (
-      <button
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '0.75rem' }}>
+        <button
         onClick={() => setShowConfirm(true)}
         className="btn btn-danger"
       >
         Delete Project
       </button>
+      </div>
     )
   }
 
@@ -77,7 +79,7 @@ export default function DeleteProjectButton({ projectId, projectName }: DeletePr
           {error}
         </div>
       )}
-      <div className="flex gap-2">
+      <div className="flex gap-2" style={{ display: 'flex', justifyContent: 'center', gap: '0.75rem' }}>
         <button
           onClick={handleDelete}
           className="btn btn-danger"

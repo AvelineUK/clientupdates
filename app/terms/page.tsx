@@ -3,22 +3,10 @@ import Link from 'next/link'
 export default function TermsPage() {
   return (
     <div className="container-sm" style={{ paddingTop: '4rem', paddingBottom: '4rem' }}>
-      <div style={{ marginBottom: '2rem' }}>
-        <Link 
-          href="/"
-          style={{ 
-            color: 'var(--primary)', 
-            textDecoration: 'none',
-            fontSize: '0.9375rem'
-          }}
-        >
-          ← Back to Home
-        </Link>
-      </div>
 
       <h1 style={{ marginBottom: '1rem' }}>Terms of Service</h1>
       <p className="text-secondary" style={{ marginBottom: '2rem' }}>
-        Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+        Last updated: {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
       </p>
 
       <div className="card">

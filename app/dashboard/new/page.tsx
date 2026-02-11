@@ -22,7 +22,10 @@ export default async function NewProject() {
               Placeholder
             </Link>
             <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-              <Link href="/dashboard/account" style={{ color: 'var(--text-primary)', textDecoration: 'none', fontSize: '0.9375rem' }}>
+              <Link href="/dashboard" style={{ color: 'var(--text-primary)', textDecoration: 'none', fontSize: '0.875rem' }}>
+                Dashboard
+              </Link>
+              <Link href="/dashboard/account" style={{ color: 'var(--text-primary)', textDecoration: 'none', fontSize: '0.875rem' }}>
                 Account
               </Link>
               <SignOutButton />
@@ -31,20 +34,7 @@ export default async function NewProject() {
         </div>
       </nav>
 
-      <div className="container-sm">
-        <div style={{ marginBottom: '2rem' }}>
-          <Link 
-            href="/dashboard"
-            style={{ 
-              color: 'var(--primary)', 
-              textDecoration: 'none',
-              fontSize: '0.9375rem'
-            }}
-          >
-            ← Back to Dashboard
-          </Link>
-        </div>
-
+      <div className="container-sm" style={{ paddingTop: '2rem' }}>
         <h1 style={{ marginBottom: '2rem' }}>Create New Project</h1>
 
         <div className="card">

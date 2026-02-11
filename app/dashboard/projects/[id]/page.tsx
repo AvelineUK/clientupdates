@@ -46,9 +46,9 @@ export default async function ProjectPage({ params }: { params: { id: string } }
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
-    return date.toLocaleString('en-US', {
-      month: 'short',
+    return date.toLocaleString('en-GB', {
       day: 'numeric',
+      month: 'short',
       year: 'numeric',
       hour: 'numeric',
       minute: '2-digit',
@@ -64,7 +64,10 @@ export default async function ProjectPage({ params }: { params: { id: string } }
               Placeholder
             </Link>
             <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-              <Link href="/dashboard/account" style={{ color: 'var(--text-primary)', textDecoration: 'none', fontSize: '0.9375rem' }}>
+              <Link href="/dashboard" style={{ color: 'var(--text-primary)', textDecoration: 'none', fontSize: '0.875rem' }}>
+                Dashboard
+              </Link>
+              <Link href="/dashboard/account" style={{ color: 'var(--text-primary)', textDecoration: 'none', fontSize: '0.875rem' }}>
                 Account
               </Link>
               <SignOutButton />
@@ -73,20 +76,7 @@ export default async function ProjectPage({ params }: { params: { id: string } }
         </div>
       </nav>
 
-      <div className="container-sm">
-        <div style={{ marginBottom: '2rem' }}>
-          <Link 
-            href="/dashboard"
-            style={{ 
-              color: 'var(--primary)', 
-              textDecoration: 'none',
-              fontSize: '0.9375rem'
-            }}
-          >
-            ← Back to Dashboard
-          </Link>
-        </div>
-
+      <div className="container-sm" style={{ paddingTop: '2rem' }}>
         <div style={{ marginBottom: '2rem' }}>
           <h1 style={{ marginBottom: '0.5rem' }}>{project.name}</h1>
           <p className="text-secondary">Client: {project.client_email}</p>
@@ -102,7 +92,6 @@ export default async function ProjectPage({ params }: { params: { id: string } }
             <code style={{ 
               display: 'block', 
               padding: '0.75rem', 
-              background: 'white', 
               borderRadius: 'var(--radius)',
               fontSize: '0.875rem',
               wordBreak: 'break-all'

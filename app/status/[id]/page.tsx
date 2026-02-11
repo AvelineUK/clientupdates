@@ -21,6 +21,13 @@ export default async function StatusPage({ params }: { params: { id: string } })
     notFound()
   }
 
+  // Fetch user branding separately
+  const { data: userProfile } = await supabase
+    .from('user_profiles')
+    .select('branding_logo_url, branding_primary_color, branding_company_name')
+    .eq('id', project.user_id)
+    .single()
+
   // Fetch updates
   const { data: updates } = await supabase
     .from('updates')
@@ -40,79 +47,59 @@ export default async function StatusPage({ params }: { params: { id: string } })
   }
 
   const latestUpdate = updates && updates.length > 0 ? updates[0] : null
+  
+  // Get branding (if user has it)
+  const logo = userProfile?.branding_logo_url
+  const companyName = userProfile?.branding_company_name || 'Placeholder'
+  const primaryColor = userProfile?.branding_primary_color || '#0f172a'
 
   return (
     <>
       <ViewTracker projectId={id} />
       
-      <div className="container-sm" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
-        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <div style={{ 
-            display: 'inline-block',
-            padding: '0.5rem 1rem',
-            background: 'var(--bg-secondary)',
-            borderRadius: 'var(--radius)',
-            marginBottom: '1rem'
-          }}>
-            <span style={{ color: 'var(--primary)', fontWeight: 600 }}>
-              Placeholder
-            </span>
+      <div className="container-sm page-container">
+        <div className="status-page-header">
+          <div className="status-page-badge">
+            {logo ? (
+              <img src={logo} alt={companyName} style={{ maxHeight: '40px', maxWidth: '160px' }} />
+            ) : (
+              <span>{companyName}</span>
+            )}
           </div>
-          <h1 style={{ marginBottom: '0.5rem' }}>{project.name}</h1>
+          <h1>{project.name}</h1>
           <p className="text-secondary">Project Status Page</p>
         </div>
 
         {!latestUpdate ? (
-          <div className="card" style={{ textAlign: 'center', padding: '3rem' }}>
+          <div className="card empty-state">
             <p className="text-secondary">No updates yet. Check back soon!</p>
           </div>
         ) : (
           <>
-            {/* Latest Update - Featured */}
-            <div className="card" style={{ 
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-              color: 'white',
-              marginBottom: '2rem'
-            }}>
-              <div style={{ 
-                display: 'flex', 
-                justifyContent: 'space-between', 
-                alignItems: 'center',
-                marginBottom: '1rem'
-              }}>
-                <span style={{ opacity: 0.9, fontSize: '0.875rem' }}>
-                  {formatDate(latestUpdate.created_at)}
+            {/* Latest Update */}
+            <div className="card latest-update">
+              <div className="update-meta">
+                <span className="update-date">
+                  Latest Update · {formatDate(latestUpdate.created_at)}
                 </span>
                 {latestUpdate.status && (
-                  <span style={{ 
-                    background: 'rgba(255, 255, 255, 0.2)',
-                    padding: '0.25rem 0.75rem',
-                    borderRadius: '9999px',
-                    fontSize: '0.875rem',
-                    fontWeight: 500
-                  }}>
+                  <span className={`status-badge status-${latestUpdate.status.toLowerCase().replace(' ', '-')}`}>
                     {latestUpdate.status}
                   </span>
                 )}
               </div>
-              <p style={{ fontSize: '1.125rem', lineHeight: 1.7 }}>
-                {latestUpdate.message}
-              </p>
+              <p className="update-content">{latestUpdate.message}</p>
               {latestUpdate.file_url && (
-                <div style={{ marginTop: '1rem' }}>
+                <div style={{ marginTop: '1.25rem' }}>
                   <a 
                     href={latestUpdate.file_url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="btn btn-secondary"
                     style={{ 
-                      display: 'inline-block',
-                      background: 'rgba(255, 255, 255, 0.2)',
+                      backgroundColor: primaryColor,
                       color: 'white',
-                      padding: '0.625rem 1.25rem',
-                      borderRadius: 'var(--radius)',
-                      textDecoration: 'none',
-                      fontSize: '0.9375rem',
-                      fontWeight: 500
+                      borderColor: primaryColor
                     }}
                   >
                     📎 {latestUpdate.file_name}
@@ -124,22 +111,10 @@ export default async function StatusPage({ params }: { params: { id: string } })
             {/* Previous Updates */}
             {updates && updates.length > 1 && (
               <div className="card">
-                <h2 style={{ marginBottom: '1.5rem' }}>Previous Updates</h2>
-                {updates.slice(1).map((update, index) => (
-                  <div 
-                    key={update.id}
-                    style={{ 
-                      paddingTop: index === 0 ? 0 : '1.5rem',
-                      paddingBottom: '1.5rem',
-                      borderBottom: index < updates.length - 2 ? '1px solid var(--border)' : 'none'
-                    }}
-                  >
-                    <div style={{ 
-                      display: 'flex', 
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      marginBottom: '0.75rem'
-                    }}>
+                <h2 style={{ marginBottom: '1.5rem', fontSize: '1.125rem' }}>Previous Updates</h2>
+                {updates.slice(1).map((update) => (
+                  <div key={update.id} className="update-item">
+                    <div className="update-meta">
                       <span className="text-sm text-secondary">
                         {formatDate(update.created_at)}
                       </span>
@@ -149,14 +124,14 @@ export default async function StatusPage({ params }: { params: { id: string } })
                         </span>
                       )}
                     </div>
-                    <p>{update.message}</p>
+                    <p style={{ color: 'var(--text-primary)' }}>{update.message}</p>
                     {update.file_url && (
                       <p style={{ marginTop: '0.75rem' }}>
                         <a 
                           href={update.file_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          style={{ color: 'var(--primary)', textDecoration: 'none' }}
+                          style={{ color: primaryColor, textDecoration: 'none', fontSize: '0.875rem' }}
                         >
                           📎 {update.file_name}
                         </a>
@@ -169,9 +144,9 @@ export default async function StatusPage({ params }: { params: { id: string } })
           </>
         )}
 
-        <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+        <div className="status-footer">
           <p className="text-secondary text-sm">
-            Powered by <span style={{ color: 'var(--primary)', fontWeight: 600 }}>Placeholder</span>
+            Powered by <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>Placeholder</span>
           </p>
         </div>
       </div>

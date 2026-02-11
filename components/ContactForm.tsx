@@ -43,7 +43,7 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="form-horizontal">
       <div className="form-group">
         <label htmlFor="name">Name *</label>
         <input
@@ -102,13 +102,15 @@ export default function ContactForm() {
         </div>
       )}
 
-      <button
-        type="submit"
-        className="btn btn-primary"
-        disabled={loading}
-      >
-        {loading ? 'Sending...' : 'Send Message'}
-      </button>
+      <div className="form-actions">
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={loading}
+        >
+          {loading ? 'Sending...' : 'Send Message'}
+        </button>
+      </div>
     </form>
   )
 }

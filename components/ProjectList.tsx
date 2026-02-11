@@ -44,7 +44,7 @@ export default function ProjectList({ projects }: ProjectListProps) {
   }
 
   return (
-    <div>
+    <div className="projects-grid">
       {projects.map((project) => {
         const latestUpdate = project.updates && project.updates.length > 0 
           ? project.updates[0] 
@@ -52,59 +52,60 @@ export default function ProjectList({ projects }: ProjectListProps) {
         const hasBeenViewed = project.last_view !== null
 
         return (
-          <div key={project.id} className="card">
-            <div style={{ marginBottom: '0.75rem' }}>
-              <div className="flex items-center justify-between">
-                <h3 style={{ marginBottom: '0.25rem' }}>
-                  <Link 
-                    href={`/dashboard/projects/${project.id}`}
-                    style={{ color: 'inherit', textDecoration: 'none' }}
-                  >
+          <Link 
+            key={project.id} 
+            href={`/dashboard/projects/${project.id}`}
+            style={{ textDecoration: 'none', color: 'inherit' }}
+          >
+            <div className="card" style={{ cursor: 'pointer', transition: 'all 0.15s ease' }}>
+              <div style={{ marginBottom: '0.75rem' }}>
+                <div className="flex items-center justify-between">
+                  <h3 style={{ marginBottom: '0.25rem' }}>
                     {project.name}
-                  </Link>
-                </h3>
-                {latestUpdate && latestUpdate.status && (
-                  <span className={`status-badge status-${latestUpdate.status.toLowerCase().replace(' ', '-')}`}>
-                    {latestUpdate.status}
-                  </span>
-                )}
+                  </h3>
+                  {latestUpdate && latestUpdate.status && (
+                    <span className={`status-badge status-${latestUpdate.status.toLowerCase().replace(' ', '-')}`}>
+                      {latestUpdate.status}
+                    </span>
+                  )}
+                </div>
+                <p className="text-secondary text-sm">
+                  Client: {project.client_email}
+                </p>
               </div>
-              <p className="text-secondary text-sm">
-                Client: {project.client_email}
-              </p>
-            </div>
 
-            {latestUpdate && (
-              <p 
-                className="text-secondary text-sm"
-                style={{ 
-                  marginBottom: '0.75rem',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  display: '-webkit-box',
-                  WebkitLineClamp: 2,
-                  WebkitBoxOrient: 'vertical'
-                }}
-              >
-                {latestUpdate.message}
-              </p>
-            )}
+              {latestUpdate && (
+                <p 
+                  className="text-secondary text-sm"
+                  style={{ 
+                    marginBottom: '0.75rem',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical'
+                  }}
+                >
+                  {latestUpdate.message}
+                </p>
+              )}
 
-            <div className="flex items-center justify-between text-sm text-secondary">
-              <span>
-                Updated {formatDate(project.updated_at)}
-              </span>
-              <span>
-                {hasBeenViewed ? (
-                  <span style={{ color: 'var(--success)' }}>
-                    ✓ Viewed {formatDate(project.last_view!)}
-                  </span>
-                ) : (
-                  <span>Not viewed yet</span>
-                )}
-              </span>
+              <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
+                <div style={{ marginBottom: '0.5rem' }}>
+                  Updated {formatDate(project.updated_at)}
+                </div>
+                <div>
+                  {hasBeenViewed ? (
+                    <span style={{ color: 'var(--success)' }}>
+                      ✓ Viewed {formatDate(project.last_view!)}
+                    </span>
+                  ) : (
+                    <span>Not viewed yet</span>
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
+          </Link>
         )
       })}
     </div>

@@ -63,7 +63,7 @@ export default function NewProjectForm({ userId }: NewProjectFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="form-horizontal">
       <div className="form-group">
         <label htmlFor="name">Project Name *</label>
         <input
@@ -142,7 +142,7 @@ export default function NewProjectForm({ userId }: NewProjectFormProps) {
         </div>
       )}
 
-      <div className="flex gap-2">
+      <div className="form-actions">
         <button
           type="submit"
           className="btn btn-primary"

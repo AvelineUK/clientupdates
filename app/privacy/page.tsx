@@ -3,22 +3,10 @@ import Link from 'next/link'
 export default function PrivacyPage() {
   return (
     <div className="container-sm" style={{ paddingTop: '4rem', paddingBottom: '4rem' }}>
-      <div style={{ marginBottom: '2rem' }}>
-        <Link 
-          href="/"
-          style={{ 
-            color: 'var(--primary)', 
-            textDecoration: 'none',
-            fontSize: '0.9375rem'
-          }}
-        >
-          ← Back to Home
-        </Link>
-      </div>
 
       <h1 style={{ marginBottom: '1rem' }}>Privacy Policy</h1>
       <p className="text-secondary" style={{ marginBottom: '2rem' }}>
-        Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+        Last updated: {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
       </p>
 
       <div className="card">
@@ -69,7 +57,7 @@ export default function PrivacyPage() {
 
         <h2>10. Contact Us</h2>
         <p>
-          Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. If you have questions about this Privacy Policy, please <Link href="/contact" style={{ color: 'var(--primary)' }}>contact us</Link>.
+          Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. If you have questions about this Privacy Policy, please <Link href="/contact" style={{ textDecoration: 'none', color: 'var(--primary)' }}>contact us</Link>.
         </p>
       </div>
     </div>
