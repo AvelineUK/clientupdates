@@ -4,6 +4,7 @@ import Link from 'next/link'
 import SignOutButton from '@/components/SignOutButton'
 import ProjectUpdateForm from '@/components/ProjectUpdateForm'
 import DeleteProjectButton from '@/components/DeleteProjectButton'
+import CopyToClipboard from '@/components/CopyToClipboard'
 
 export default async function ProjectPage({ params }: { params: { id: string } }) {
   const supabase = await createClient()
@@ -15,6 +16,15 @@ export default async function ProjectPage({ params }: { params: { id: string } }
   }
 
   const { id } = await params
+
+  // Fetch user profile for tier info
+  const { data: profile } = await supabase
+    .from('user_profiles')
+    .select('subscription_tier')
+    .eq('id', user.id)
+    .single()
+
+  const userTier = profile?.subscription_tier || 'free'
 
   // Fetch project
   const { data: project, error: projectError } = await supabase
@@ -94,12 +104,14 @@ export default async function ProjectPage({ params }: { params: { id: string } }
               padding: '0.75rem', 
               borderRadius: 'var(--radius)',
               fontSize: '0.875rem',
-              wordBreak: 'break-all'
+              wordBreak: 'break-all',
+              userSelect: 'all'
             }}>
               {statusPageUrl}
             </code>
           </div>
           <div className="flex gap-2">
+            <CopyToClipboard text={statusPageUrl} />
             <a 
               href={statusPageUrl}
               target="_blank"
@@ -119,7 +131,7 @@ export default async function ProjectPage({ params }: { params: { id: string } }
         {/* Post Update */}
         <div className="card">
           <h3 style={{ marginBottom: '1rem' }}>Post Update</h3>
-          <ProjectUpdateForm projectId={id} />
+          <ProjectUpdateForm projectId={id} userTier={userTier} />
         </div>
 
         {/* Update History */}

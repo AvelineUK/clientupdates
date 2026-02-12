@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import NewProjectForm from '@/components/NewProjectForm'
 import SignOutButton from '@/components/SignOutButton'
+import { canCreateProject } from '@/lib/tier-limits'
 
 export default async function NewProject() {
   const supabase = await createClient()
@@ -11,6 +12,29 @@ export default async function NewProject() {
   
   if (!user) {
     redirect('/')
+  }
+
+  // Fetch user profile for tier info
+  const { data: profile } = await supabase
+    .from('user_profiles')
+    .select('subscription_tier')
+    .eq('id', user.id)
+    .single()
+
+  const userTier = profile?.subscription_tier || 'free'
+
+  // Count existing projects
+  const { count } = await supabase
+    .from('projects')
+    .select('*', { count: 'exact', head: true })
+    .eq('user_id', user.id)
+
+  const projectCount = count || 0
+  const canCreate = canCreateProject(userTier, projectCount)
+
+  // If they can't create, redirect to billing
+  if (!canCreate) {
+    redirect('/dashboard/billing')
   }
 
   return (
@@ -38,7 +62,7 @@ export default async function NewProject() {
         <h1 style={{ marginBottom: '2rem' }}>Create New Project</h1>
 
         <div className="card">
-          <NewProjectForm userId={user.id} />
+          <NewProjectForm userId={user.id} userTier={userTier} />
         </div>
       </div>
     </div>

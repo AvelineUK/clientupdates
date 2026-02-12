@@ -146,7 +146,7 @@ export default async function StatusPage({ params }: { params: { id: string } })
 
         <div className="status-footer">
           <p className="text-secondary text-sm">
-            Powered by <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>Placeholder</span>
+            Powered by <a href="https://yoursite.com" style={{ color: 'var(--text-primary)', fontWeight: 600, textDecoration: 'none' }}>Placeholder</a>
           </p>
         </div>
       </div>

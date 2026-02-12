@@ -5,6 +5,7 @@ export default function Footer() {
     <footer style={{
       borderTop: '1px solid var(--border)',
       padding: '1.5rem 0',
+      margin: '4rem 0 0 0',
       background: 'var(--bg-secondary)'
     }}>
       <div className="container">
@@ -13,7 +14,7 @@ export default function Footer() {
           justifyContent: 'space-between',
           alignItems: 'center',
           flexWrap: 'wrap',
-          gap: '1.5rem'
+          gap: '1.5rem',
         }}>
           <p className="text-secondary text-sm">
             © {new Date().getFullYear()} <Link href="/" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>Placeholder</Link>. All rights reserved.

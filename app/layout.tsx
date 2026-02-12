@@ -1,6 +1,6 @@
 import '../styles/globals.css'
 import type { Metadata } from 'next'
-import Footer from '@/components/Footer'
+import ConditionalFooter from '@/components/ConditionalFooter'
 
 export const metadata: Metadata = {
   title: 'Placeholder - Simple Project Updates',
@@ -24,7 +24,7 @@ export default function RootLayout({
           <div style={{ flex: 1 }}>
             {children}
           </div>
-          <Footer />
+          <ConditionalFooter />
         </div>
       </body>
     </html>

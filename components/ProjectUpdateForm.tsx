@@ -2,9 +2,12 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { canUploadFiles } from '@/lib/tier-limits'
 
 interface ProjectUpdateFormProps {
   projectId: string
+  userTier?: string
 }
 
 const STATUS_OPTIONS = [
@@ -14,13 +17,15 @@ const STATUS_OPTIONS = [
   'Complete'
 ]
 
-export default function ProjectUpdateForm({ projectId }: ProjectUpdateFormProps) {
+export default function ProjectUpdateForm({ projectId, userTier = 'free' }: ProjectUpdateFormProps) {
   const [message, setMessage] = useState('')
   const [status, setStatus] = useState('')
   const [file, setFile] = useState<File | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const router = useRouter()
+
+  const canAttachFiles = canUploadFiles(userTier)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -95,13 +100,20 @@ export default function ProjectUpdateForm({ projectId }: ProjectUpdateFormProps)
 
       <div className="form-group">
         <label htmlFor="update-file">Attachment (optional)</label>
-        <input
-          id="update-file"
-          type="file"
-          onChange={(e) => setFile(e.target.files?.[0] || null)}
-          disabled={loading}
-          accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif"
-        />
+        <div>
+          <input
+            id="update-file"
+            type="file"
+            onChange={(e) => setFile(e.target.files?.[0] || null)}
+            disabled={loading || !canAttachFiles}
+            accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif"
+          />
+          {!canAttachFiles && (
+            <p className="text-secondary text-sm" style={{ marginTop: '0.25rem' }}>
+              File attachments available on Pro plan. <Link href="/dashboard/billing" style={{ color: 'var(--primary)', textDecoration: 'none' }}>Upgrade →</Link>
+            </p>
+          )}
+        </div>
       </div>
 
       {error && (

@@ -65,6 +65,10 @@ p {
   color: var(--text-secondary);
 }
 
+.spacing {
+  margin: -4rem 0;
+}
+
 /* Buttons */
 .btn {
   padding: 0.5rem 1rem;

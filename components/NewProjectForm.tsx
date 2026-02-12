@@ -3,9 +3,12 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { nanoid } from 'nanoid'
+import Link from 'next/link'
+import { canUploadFiles } from '@/lib/tier-limits'
 
 interface NewProjectFormProps {
   userId: string
+  userTier?: string
 }
 
 const STATUS_OPTIONS = [
@@ -15,7 +18,7 @@ const STATUS_OPTIONS = [
   'Complete'
 ]
 
-export default function NewProjectForm({ userId }: NewProjectFormProps) {
+export default function NewProjectForm({ userId, userTier = 'free' }: NewProjectFormProps) {
   const [name, setName] = useState('')
   const [clientEmail, setClientEmail] = useState('')
   const [message, setMessage] = useState('')
@@ -24,6 +27,8 @@ export default function NewProjectForm({ userId }: NewProjectFormProps) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const router = useRouter()
+
+  const canAttachFiles = canUploadFiles(userTier)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -124,16 +129,24 @@ export default function NewProjectForm({ userId }: NewProjectFormProps) {
 
       <div className="form-group">
         <label htmlFor="file">Attachment (optional)</label>
-        <input
-          id="file"
-          type="file"
-          onChange={(e) => setFile(e.target.files?.[0] || null)}
-          disabled={loading}
-          accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif"
-        />
-        <p className="text-secondary text-sm" style={{ marginTop: '0.25rem' }}>
-          PDF, DOC, or image files accepted
-        </p>
+        <div>
+          <input
+            id="file"
+            type="file"
+            onChange={(e) => setFile(e.target.files?.[0] || null)}
+            disabled={loading || !canAttachFiles}
+            accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif"
+          />
+          {canAttachFiles ? (
+            <p className="text-secondary text-sm" style={{ marginTop: '0.25rem' }}>
+              PDF, DOC, or image files accepted
+            </p>
+          ) : (
+            <p className="text-secondary text-sm" style={{ marginTop: '0.25rem' }}>
+              File attachments available on Pro plan. <Link href="/dashboard/billing" style={{ color: 'var(--primary)', textDecoration: 'none' }}>Upgrade →</Link>
+            </p>
+          )}
+        </div>
       </div>
 
       {error && (

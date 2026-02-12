@@ -15,14 +15,15 @@ export default function SubscriptionCard({ currentTier, status }: SubscriptionCa
       {isBeta && (
         <div style={{ 
           padding: '1rem', 
-          background: '#dbeafe', 
-          color: '#1e40af',
+          background: 'var(--bg-tertiary)', 
+          color: 'var(--text-primary)',
+          border: '2px solid var(--primary)',
           borderRadius: 'var(--radius)',
           marginBottom: '1.5rem',
           fontSize: '0.9375rem'
         }}>
-          <strong>🎉 Free Beta Access</strong>
-          <p style={{ marginTop: '0.5rem', marginBottom: 0 }}>
+          <strong>Free Beta Access</strong>
+          <p style={{ marginTop: '0.5rem', marginBottom: 0, color: 'var(--text-secondary)' }}>
             You have unlimited access to all features during our beta period. Thank you for being an early adopter!
           </p>
         </div>
